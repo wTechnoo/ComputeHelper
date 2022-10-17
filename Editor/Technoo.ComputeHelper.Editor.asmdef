@@ -1,0 +1,16 @@
+{
+    "name": "Technoo.ComputeHelper.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:458d089ea1cbc5740b2766f11f62aa5f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

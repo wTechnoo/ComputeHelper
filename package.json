@@ -1,0 +1,19 @@
+{
+  "name": "com.technoo.computehelper",
+  "version": "1.0.0",
+  "displayName": "Compute Helper",
+  "description": "Compute shader and shader helper functions and classes",
+  "unity": "2020.3",
+  "dependencies": {
+    
+ },
+ "keywords": [
+    "Compute Shader",
+    "Shader",
+    "HLSL"
+  ],
+  "author": {
+    "name": "Technoo",
+    "email": "technoocontact@gmail.com"
+  }
+}
