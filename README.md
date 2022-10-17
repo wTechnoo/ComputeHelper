@@ -2,6 +2,7 @@
 Shaderlab and Compute Shader functions, classes replacing boilerplate code
 - Compute Shaders boilerplate code ComputeRunner class
 - Instanced Rendering boilerplate code into InstancedRendering class
+- Generic Structured buffers
 
 ## Installation
 Import from git or package.json into Unity Package manager!
