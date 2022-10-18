@@ -2,6 +2,9 @@
 
 namespace ComputeHelper
 {
+    /// <summary>
+    /// Compute Shader class that reduces boilerplate code
+    /// </summary>
     public class ComputeRunner
     {
         public ComputeShader ComputeShader;
@@ -10,6 +13,14 @@ namespace ComputeHelper
         int[] _kernels;
         int _kernelCount;
 
+        /// <summary>
+        /// This constructor setups threads and kernels (Can contain more than one kernel)
+        /// </summary>
+        /// <param name="computeShader">Compute Shader reference.</param>
+        /// <param name="count">Object count or texture resolution (ex: Vector3Int(512, 512, 1)).</param>
+        /// <param name="moreThanOneKernel">Boolean to control more than one kernel.</param>
+        /// <param name="kernelCount">How many kernels there are on the compute shader.</param>
+        /// <param name="kernels">kernels string array with kernel names.</param>
         public ComputeRunner(ComputeShader computeShader, Vector3Int count, bool moreThanOneKernel = false,
             int kernelCount = 1, string[] kernels = null)
         {
@@ -51,16 +62,25 @@ namespace ComputeHelper
             }
         }
 
+        /// <summary>
+        /// Add buffer to compute shader
+        /// </summary>
         public void AddBuffer<T>(BufferHolder<T> b)
         {
             ComputeShader.SetBuffer(b.Kernel, b.Name, b.Buffer);
         }
 
+        /// <summary>
+        /// Add RenderTexture to compute shader
+        /// </summary>
         public void AddTexture(int kernel, string name, RenderTexture tex)
         {
             ComputeShader.SetTexture(kernel, name, tex);
         }
 
+        /// <summary>
+        /// Dispatches all kernels with the group size of each kernel
+        /// </summary>
         public void DispatchAll()
         {
             if (_kernelCount == 1)
@@ -76,18 +96,36 @@ namespace ComputeHelper
             }
         }
 
+        /// <summary>
+        /// Dispatches compute shader
+        /// </summary>
         public void Dispatch()
         {
             Vector3Int groupSize = _groupSizes[0];
             ComputeShader.Dispatch(0, groupSize.x, groupSize.y, groupSize.z);
         }
+        
+        /// <summary>
+        /// Dispatches specifying thread numbers
+        /// </summary>
+        public void Dispatch(int threadX, int threadY, int threadZ)
+        {
+            Vector3Int groupSize = _groupSizes[0];
+            ComputeShader.Dispatch(0, threadX, threadY, threadZ);
+        }
 
+        /// <summary>
+        /// Dispatches individual kernel
+        /// </summary>
         public void Dispatch(int kernel)
         {
             Vector3Int groupSize = _groupSizes[0];
             ComputeShader.Dispatch(kernel, groupSize.x, groupSize.y, groupSize.z);
         }
 
+        /// <summary>
+        /// Dispatches individual kernel by name
+        /// </summary>
         public void Dispatch(string kernelName)
         {
             Vector3Int groupSize = _groupSizes[0];

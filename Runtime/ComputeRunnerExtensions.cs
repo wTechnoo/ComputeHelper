@@ -2,6 +2,9 @@
 
 namespace ComputeHelper
 {
+	/// <summary>
+	/// Compute shader set variables extensions
+	/// </summary>
 	public static class ComputeRunnerExtensions
 	{
 		public static void SetVar(this ComputeRunner a, string n, float var) => a.ComputeShader.SetFloat(n, var);
