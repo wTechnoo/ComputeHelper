@@ -209,3 +209,23 @@ void CSMain (uint3 id : SV_DispatchThreadID)
 ```
 
 `Packages/com.technoo.computehelper/Runtime/Computehelper.cginc` contains the compose function that builds a 4x4 matrix (position, rotation quaternion, scale)
+
+#### Shaderlab:
+```HLSL
+struct Example
+{
+    float3 position;
+    float4x4 mat;
+};
+
+StructuredBuffer<Example> Buffer;
+
+v2f vert(appdata v, uint instanceID : SV_InstanceID)
+{
+    v2f o;
+    float4 position = mul(Buffer[instanceID].mat, v.vertex);
+    o.vertex = UnityObjectToClipPos(position);
+    o.uv = v.uv;
+    return o;
+}
+```
