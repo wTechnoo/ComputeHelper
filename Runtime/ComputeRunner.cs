@@ -77,6 +77,14 @@ namespace ComputeHelper
         {
             ComputeShader.SetTexture(kernel, name, tex);
         }
+        
+        /// <summary>
+        /// Add Texture2D to compute shader
+        /// </summary>
+        public void AddTexture(int kernel, string name, Texture2D tex)
+        {
+            ComputeShader.SetTexture(kernel, name, tex);
+        }
 
         /// <summary>
         /// Dispatches all kernels with the group size of each kernel
