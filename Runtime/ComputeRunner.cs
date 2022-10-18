@@ -91,12 +91,6 @@ namespace ComputeHelper
         /// </summary>
         public void DispatchAll()
         {
-            if (_kernelCount == 1)
-            {
-                Debug.LogError("Only 1 kernel exists");
-                return;
-            }
-
             for (int i = 0; i < _kernelCount; i++)
             {
                 Vector3Int groupSize = _groupSizes[i];
