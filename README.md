@@ -1,5 +1,5 @@
 # Compute Helper
-> Shaderlab, Rendering and Compute Shader functions and classes
+Shaderlab, Rendering and Compute Shader functions and classes
 
 ## Installation
 Import from git or package.json into Unity Package manager
@@ -207,3 +207,5 @@ void CSMain (uint3 id : SV_DispatchThreadID)
     Buffer[id.x].mat = compose(GrassBuffer[id.x].position);
 }
 ```
+
+`Packages/com.technoo.computehelper/Runtime/Computehelper.cginc` contains the compose function that builds a 4x4 matrix (position, rotation quaternion, scale)
