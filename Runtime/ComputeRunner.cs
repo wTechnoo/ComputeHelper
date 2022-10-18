@@ -21,15 +21,17 @@ namespace ComputeHelper
         /// <param name="moreThanOneKernel">Boolean to control more than one kernel.</param>
         /// <param name="kernelCount">How many kernels there are on the compute shader.</param>
         /// <param name="kernels">kernels string array with kernel names.</param>
-        public ComputeRunner(ComputeShader computeShader, Vector3Int count, bool moreThanOneKernel = false,
-            int kernelCount = 1, string[] kernels = null)
+        public ComputeRunner(ComputeShader computeShader, Vector3Int count, string[] kernels = null)
         {
             ComputeShader = computeShader;
-            _kernelCount = kernelCount;
+            _kernelCount = 1;
+            
+            if (kernels != null)
+                _kernelCount = kernels.Length;
 
             _groupSizes = new Vector3Int[_kernelCount];
             _kernels = new int[_kernelCount];
-            if (moreThanOneKernel && kernels != null)
+            if (kernels != null)
             {
                 for (int i = 0; i < _kernelCount; i++)
                 {
