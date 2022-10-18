@@ -35,7 +35,7 @@ Arguments:
 1. `computeShader:` Compute shader reference.
 2. `count:` Object count or texture resolution (ex: new Vector3Int(512, 512, 1)).
 3. `moreThanOneKernel:` Boolean to control if there's more than one kernel.
-4. `kernelCount":` How many kernels exist.
+4. `kernelCount:` How many kernels exist.
 5. `kernels[]:` Kernel string array with kernel names.
 
 ### [BufferHolder](https://github.com/wTechnoo/ComputeHelper/blob/main/Runtime/BufferHolder.cs)
