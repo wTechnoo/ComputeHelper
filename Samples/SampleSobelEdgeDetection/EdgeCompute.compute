@@ -1,0 +1,98 @@
+#pragma kernel Greyscale
+#pragma kernel HorzSobel
+#pragma kernel VerSobel
+#pragma kernel FullSobel
+#pragma kernel Threshold
+#pragma kernel Final
+
+Texture2D<float4> originalTex;
+RWTexture2D<float4> greyscaleTex;
+RWTexture2D<float4> horzSobelTex;
+RWTexture2D<float4> verSobelTex;
+
+RWTexture2D<float4> sobelTex;
+RWTexture2D<float4> thresholdTex;
+RWTexture2D<float4> finalTex;
+
+[numthreads(8,8,1)]
+void Greyscale (uint3 id : SV_DispatchThreadID)
+{
+    float4 t = originalTex[id.xy];
+    float av = (t.r + t.g + t.b) / 3.0;
+
+    greyscaleTex[id.xy] = float4(av, av, av, t.a);
+}
+
+[numthreads(8,8,1)]
+void HorzSobel (uint3 id : SV_DispatchThreadID)
+{
+    float4 pixel = float4(0,0,0,0);
+    // Convolution
+    //  1  2  1
+    //  0  0  0
+    // -1 -2 -1
+
+    pixel += 1 * greyscaleTex[id.xy - uint2(-1, 1)];
+    pixel += 2 * greyscaleTex[id.xy - uint2(0, 1)];
+    pixel += 1 * greyscaleTex[id.xy - uint2(1, 1)];
+
+    pixel -= 1 * greyscaleTex[id.xy - uint2(-1, -1)];
+    pixel -= 1 * greyscaleTex[id.xy - uint2(0, -1)];
+    pixel -= 1 * greyscaleTex[id.xy - uint2(1, -1)];
+
+    pixel.a = greyscaleTex[id.xy].a;
+    
+    horzSobelTex[id.xy] = pixel;
+}
+
+[numthreads(8,8,1)]
+void VerSobel (uint3 id : SV_DispatchThreadID)
+{
+    float4 pixel = float4(0,0,0,0);
+    // Convolution
+    //  1  0 -1
+    //  2  0 -2
+    //  1  0 -1
+
+    pixel += 1 * greyscaleTex[id.xy - uint2(-1, 1)];
+    pixel -= 1 * greyscaleTex[id.xy - uint2( 1, 1)];
+    
+    pixel += 2 * greyscaleTex[id.xy - uint2(-1, 0)];
+    pixel -= 2 * greyscaleTex[id.xy - uint2( 1, 0)];
+    
+    pixel += 1 * greyscaleTex[id.xy - uint2(-1,-1)];
+    pixel -= 1 * greyscaleTex[id.xy - uint2( 1,-1)];
+
+    pixel.a = greyscaleTex[id.xy].a;
+    
+    verSobelTex[id.xy] = pixel;
+}
+
+[numthreads(8,8,1)]
+void FullSobel (uint3 id : SV_DispatchThreadID)
+{
+    float4 horzS = horzSobelTex[id.xy];
+    float4 verS = verSobelTex[id.xy];
+    
+    sobelTex[id.xy] = sqrt(horzS * horzS + verS * verS);
+}
+
+float threshold, blur;
+float4 color;
+bool additive;
+
+[numthreads(8,8,1)]
+void Threshold (uint3 id : SV_DispatchThreadID)
+{
+    float4 s = step(float4(threshold, threshold, threshold, 1), sobelTex[id.xy]);
+    thresholdTex[id.xy] = s * color;
+}
+
+[numthreads(8,8,1)]
+void Final (uint3 id : SV_DispatchThreadID)
+{
+    if(additive)
+        finalTex[id.xy] = thresholdTex[id.xy] + originalTex[id.xy];
+    else
+        finalTex[id.xy] = any(thresholdTex[id.xy].rgb > 0) ? color * thresholdTex[id.xy] : originalTex[id.xy];
+}

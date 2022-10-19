@@ -18,8 +18,6 @@ namespace ComputeHelper
         /// </summary>
         /// <param name="computeShader">Compute Shader reference.</param>
         /// <param name="count">Object count or texture resolution (ex: Vector3Int(512, 512, 1)).</param>
-        /// <param name="moreThanOneKernel">Boolean to control more than one kernel.</param>
-        /// <param name="kernelCount">How many kernels there are on the compute shader.</param>
         /// <param name="kernels">kernels string array with kernel names.</param>
         public ComputeRunner(ComputeShader computeShader, Vector3Int count, string[] kernels = null)
         {
