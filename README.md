@@ -1,5 +1,5 @@
 # Compute Helper
-Shaderlab, Rendering and Compute Shader functions and classes
+Rendering, Compute Shader and Shaderlab functions and classes
 
 ## Installation
 Import from git or package.json into Unity Package manager
@@ -34,9 +34,7 @@ public class ExampleComputeRunner : MonoBehaviour
 Arguments:
 1. `computeShader:` Compute shader reference.
 2. `count:` Object count or texture resolution (ex: new Vector3Int(512, 512, 1)).
-3. `moreThanOneKernel:` Boolean to control if there's more than one kernel.
-4. `kernelCount:` How many kernels exist.
-5. `kernels[]:` Kernel string array with kernel names.
+3. `kernels[]:` Kernel string array with kernel names.
 
 ### [BufferHolder](https://github.com/wTechnoo/ComputeHelper/blob/main/Runtime/BufferHolder.cs)
 > This class handles generic data and ComputeBuffers
