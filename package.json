@@ -20,7 +20,7 @@
         {
             "displayName": "Sobel Edge Detection",
             "description": "Sobel edge detection implemented using ComputeRunner",
-            "path": "Samples~/SampleSobelEdgeDetection"
+            "path": "Samples/SampleSobelEdgeDetection"
         }
     ]
 }
